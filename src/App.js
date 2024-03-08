@@ -15,26 +15,28 @@ function swap(arr, firstItemIndex, SecondItemIndex) {
 }
 function App() {
   const [lines, setLines] = useState(arr)
+  const [count, setCount] = useState(0)
+  
   useEffect(() => {
     sort()
   }, [])
   const sort = async () => {
-    let count=0
+    setCount(0)
     for (let i = 0; i < lines.length; i++) {
       for (let j = lines.length - 1; j > i; j--) {
-        count++;
         if (lines[j] < lines[j - 1]) {
           swap(lines, j, j - 1)
           setLines([...lines])
+          setCount(pr=>pr+1)
           await sleep()
         }
       }
     }
-    console.log(count)
   }
   return (
     <div className="App">
-      <div style={{ height: `99vh`, width: `${lines.length * 5}px`, margin: 'auto', display: 'flex', alignItems: 'end' }}>
+      <p>Total Swap:{count}</p>
+      <div style={{ height: `90vh`, width: `${lines.length * 5}px`, margin: 'auto', display: 'flex', alignItems: 'end' }}>
         {
           lines.map((l, index) => {
             return (<div key={index} style={{ height: `${l}px`, width: '20px', backgroundColor: 'red' }}></div>)
