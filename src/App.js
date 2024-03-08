@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 const arr = new Array(350).fill(0).map(x => Math.floor((Math.random() * 200 + 1)))
+const delay=1;
 const sleep = () => new Promise(res => {
   setTimeout(() => {
     res()
-  }, 0)
+  }, delay)
 })
 function swap(arr, firstItemIndex, SecondItemIndex) {
   let temp = arr[firstItemIndex]
