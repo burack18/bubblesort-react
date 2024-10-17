@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-const arr = new Array(350).fill(0).map(x => Math.floor((Math.random() * 200 + 1)))
+const arr = new Array(200).fill(0).map(x => Math.floor((Math.random() * 200 + 1)))
 const delay=1;
 const sleep = () => new Promise(res => {
   setTimeout(() => {
@@ -16,10 +16,15 @@ function swap(arr, firstItemIndex, SecondItemIndex) {
 function App() {
   const [lines, setLines] = useState(arr)
   const [count, setCount] = useState(0)
+  const [completed, setIsCompleted ] = useState(false)
   
   useEffect(() => {
-    sort()
+    init()
   }, [])
+  const init=async ()=>{
+    await sort();
+    setIsCompleted(true)
+  }
   const sort = async () => {
     setCount(0)
     for (let i = 0; i < lines.length; i++) {
@@ -35,7 +40,7 @@ function App() {
   }
   return (
     <div className="App">
-      <p>Total Swap:{count}</p>
+      <p style={{color:completed?'green':'unset'}}>Total Swap:{count}</p>
       <div style={{ height: `90vh`, width: `${lines.length * 5}px`, margin: 'auto', display: 'flex', alignItems: 'end' }}>
         {
           lines.map((l, index) => {
